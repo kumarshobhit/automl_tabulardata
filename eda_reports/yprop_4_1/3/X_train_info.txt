@@ -1,0 +1,83 @@
+DataFrame: X_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7196 entries, 0 to 7195
+Data columns (total 62 columns):
+ #   Column  Non-Null Count  Dtype   
+---  ------  --------------  -----   
+ 0   oz1     7196 non-null   float64 
+ 1   oz2     7196 non-null   float64 
+ 2   oz3     7196 non-null   float64 
+ 3   oz4     7196 non-null   float64 
+ 4   oz5     7196 non-null   float64 
+ 5   oz6     7196 non-null   float64 
+ 6   oz9     7196 non-null   float64 
+ 7   oz10    7196 non-null   float64 
+ 8   oz11    7196 non-null   float64 
+ 9   oz12    7196 non-null   float64 
+ 10  oz13    7196 non-null   float64 
+ 11  oz31    7196 non-null   float64 
+ 12  oz40    7196 non-null   category
+ 13  oz42    7196 non-null   category
+ 14  oz46    7196 non-null   category
+ 15  oz50    7196 non-null   category
+ 16  oz69    7196 non-null   category
+ 17  oz71    7196 non-null   category
+ 18  oz73    7196 non-null   category
+ 19  oz79    7196 non-null   category
+ 20  oz83    7196 non-null   float64 
+ 21  oz87    7196 non-null   float64 
+ 22  oz96    7196 non-null   category
+ 23  oz100   7196 non-null   category
+ 24  oz107   7196 non-null   category
+ 25  oz108   7196 non-null   category
+ 26  oz111   7196 non-null   category
+ 27  oz112   7196 non-null   category
+ 28  oz113   7196 non-null   category
+ 29  oz115   7196 non-null   category
+ 30  oz124   7196 non-null   float64 
+ 31  oz125   7196 non-null   float64 
+ 32  oz126   7196 non-null   float64 
+ 33  oz127   7196 non-null   float64 
+ 34  oz128   7196 non-null   float64 
+ 35  oz131   7196 non-null   float64 
+ 36  oz133   7196 non-null   float64 
+ 37  oz135   7196 non-null   category
+ 38  oz149   7196 non-null   float64 
+ 39  oz150   7196 non-null   float64 
+ 40  oz151   7196 non-null   float64 
+ 41  oz165   7196 non-null   float64 
+ 42  oz171   7196 non-null   float64 
+ 43  oz172   7196 non-null   float64 
+ 44  oz173   7196 non-null   float64 
+ 45  oz175   7196 non-null   float64 
+ 46  oz176   7196 non-null   float64 
+ 47  oz177   7196 non-null   float64 
+ 48  oz178   7196 non-null   float64 
+ 49  oz181   7196 non-null   float64 
+ 50  oz183   7196 non-null   float64 
+ 51  oz185   7196 non-null   float64 
+ 52  oz197   7196 non-null   float64 
+ 53  oz206   7196 non-null   category
+ 54  oz222   7196 non-null   category
+ 55  oz234   7196 non-null   category
+ 56  oz246   7196 non-null   float64 
+ 57  oz247   7196 non-null   float64 
+ 58  oz248   7196 non-null   float64 
+ 59  oz249   7196 non-null   float64 
+ 60  oz250   7196 non-null   float64 
+ 61  oz251   7196 non-null   float64 
+dtypes: category(20), float64(42)
+memory usage: 2.4 MB
+
+               oz1          oz2          oz3  ...        oz249        oz250        oz251
+count  7196.000000  7196.000000  7196.000000  ...  7196.000000  7196.000000  7196.000000
+mean      0.998256     0.143013     0.998693  ...     0.222463     0.153594     0.522173
+std       0.019837     0.065114     0.018969  ...     0.101997     0.106233     0.095666
+min       0.000000     0.000000     0.000000  ...     0.000000     0.000000     0.000000
+25%       0.998903     0.164706     0.998460  ...     0.151477     0.082090     0.462959
+50%       0.999578     0.164706     0.999595  ...     0.205973     0.135370     0.524711
+75%       0.999958     0.174118     0.999885  ...     0.272380     0.209532     0.581587
+max       1.000000     1.000000     1.000000  ...     1.000000     0.954242     1.000000
+
+[8 rows x 42 columns]
+

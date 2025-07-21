@@ -1,0 +1,20 @@
+DataFrame: Y_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3947 entries, 0 to 3946
+Data columns (total 1 columns):
+ #   Column               Non-Null Count  Dtype
+---  ------               --------------  -----
+ 0   median_wine_quality  3947 non-null   uint8
+dtypes: uint8(1)
+memory usage: 4.0 KB
+
+       median_wine_quality
+count          3947.000000
+mean              5.828984
+std               0.880257
+min               3.000000
+25%               5.000000
+50%               6.000000
+75%               6.000000
+max               9.000000
+

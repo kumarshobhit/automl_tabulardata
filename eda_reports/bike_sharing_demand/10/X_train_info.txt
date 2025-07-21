@@ -1,0 +1,30 @@
+DataFrame: X_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7038 entries, 0 to 7037
+Data columns (total 11 columns):
+ #   Column      Non-Null Count  Dtype   
+---  ------      --------------  -----   
+ 0   season      7038 non-null   category
+ 1   year        7038 non-null   category
+ 2   month       7038 non-null   uint8   
+ 3   hour        7038 non-null   uint8   
+ 4   holiday     7038 non-null   category
+ 5   workingday  7038 non-null   category
+ 6   weather     7038 non-null   category
+ 7   temp        7038 non-null   float64 
+ 8   feel_temp   7038 non-null   float64 
+ 9   humidity    7038 non-null   float64 
+ 10  windspeed   7038 non-null   float64 
+dtypes: category(5), float64(4), uint8(2)
+memory usage: 268.9 KB
+
+             month         hour         temp    feel_temp     humidity    windspeed
+count  7038.000000  7038.000000  7038.000000  7038.000000  7038.000000  7038.000000
+mean      6.512788    11.534243    20.394908    23.824790     0.626989    12.749247
+std       3.427114     6.926513     7.852156     8.531562     0.192741     8.222793
+min       1.000000     0.000000     0.820000     0.000000     0.000000     0.000000
+25%       4.000000     6.000000    13.940000    16.665000     0.480000     7.001500
+50%       7.000000    12.000000    20.500000    24.240000     0.630000    11.001400
+75%       9.000000    18.000000    27.060000    31.060000     0.780000    16.997900
+max      12.000000    23.000000    41.000000    46.210000     1.000000    55.998600
+

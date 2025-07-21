@@ -1,0 +1,20 @@
+DataFrame: Y_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7038 entries, 0 to 7037
+Data columns (total 1 columns):
+ #   Column  Non-Null Count  Dtype
+---  ------  --------------  -----
+ 0   count   7038 non-null   int64
+dtypes: int64(1)
+memory usage: 55.1 KB
+
+             count
+count  7038.000000
+mean    189.923416
+std     180.359216
+min       1.000000
+25%      40.000000
+50%     144.000000
+75%     282.000000
+max     976.000000
+

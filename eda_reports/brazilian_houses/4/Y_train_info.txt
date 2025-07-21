@@ -1,0 +1,20 @@
+DataFrame: Y_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 4330 entries, 0 to 4329
+Data columns (total 1 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   total_(BRL)  4330 non-null   float64
+dtypes: float64(1)
+memory usage: 34.0 KB
+
+       total_(BRL)
+count  4330.000000
+mean      8.235018
+std       0.800985
+min       6.230481
+25%       7.626326
+50%       8.173434
+75%       8.805300
+max      13.928840
+

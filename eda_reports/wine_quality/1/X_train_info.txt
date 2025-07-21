@@ -1,0 +1,33 @@
+DataFrame: X_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3946 entries, 0 to 3945
+Data columns (total 12 columns):
+ #   Column                Non-Null Count  Dtype   
+---  ------                --------------  -----   
+ 0   fixed_acidity         3946 non-null   float64 
+ 1   volatile_acidity      3946 non-null   float64 
+ 2   citric_acid           3946 non-null   float64 
+ 3   residual_sugar        3946 non-null   float64 
+ 4   chlorides             3946 non-null   float64 
+ 5   free_sulfur_dioxide   3946 non-null   float64 
+ 6   total_sulfur_dioxide  3946 non-null   float64 
+ 7   density               3946 non-null   float64 
+ 8   pH                    3946 non-null   float64 
+ 9   sulphates             3946 non-null   float64 
+ 10  alcohol               3946 non-null   float64 
+ 11  wine_color            3946 non-null   category
+dtypes: category(1), float64(11)
+memory usage: 343.2 KB
+
+       fixed_acidity  volatile_acidity  citric_acid  ...           pH    sulphates      alcohol
+count    3946.000000       3946.000000  3946.000000  ...  3946.000000  3946.000000  3946.000000
+mean        7.226204          0.341192     0.317022  ...     3.217952     0.532121    10.478025
+std         1.309851          0.167674     0.147405  ...     0.161664     0.147499     1.197997
+min         3.800000          0.080000     0.000000  ...     2.720000     0.220000     8.000000
+25%         6.400000          0.230000     0.240000  ...     3.110000     0.430000     9.500000
+50%         7.000000          0.290000     0.310000  ...     3.205000     0.510000    10.300000
+75%         7.700000          0.410000     0.390000  ...     3.320000     0.600000    11.300000
+max        15.900000          1.580000     1.660000  ...     4.010000     2.000000    14.900000
+
+[8 rows x 11 columns]
+

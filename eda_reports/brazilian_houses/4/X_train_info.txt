@@ -1,0 +1,32 @@
+DataFrame: X_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 4330 entries, 0 to 4329
+Data columns (total 11 columns):
+ #   Column                Non-Null Count  Dtype   
+---  ------                --------------  -----   
+ 0   city                  4330 non-null   category
+ 1   area                  4330 non-null   int64   
+ 2   rooms                 4330 non-null   uint8   
+ 3   bathroom              4330 non-null   uint8   
+ 4   parking_spaces        4330 non-null   uint8   
+ 5   animal                4330 non-null   category
+ 6   furniture             4330 non-null   category
+ 7   hoa_(BRL)             4330 non-null   int64   
+ 8   rent_amount_(BRL)     4330 non-null   int64   
+ 9   property_tax_(BRL)    4330 non-null   int64   
+ 10  fire_insurance_(BRL)  4330 non-null   int64   
+dtypes: category(3), int64(5), uint8(3)
+memory usage: 195.1 KB
+
+               area        rooms  ...  property_tax_(BRL)  fire_insurance_(BRL)
+count   4330.000000  4330.000000  ...         4330.000000           4330.000000
+mean     144.074596     2.500693  ...          336.831640             52.485912
+std      232.995815     1.177531  ...          728.758862             46.275376
+min       11.000000     1.000000  ...            0.000000              3.000000
+25%       55.000000     2.000000  ...           38.000000             21.000000
+50%       90.000000     2.000000  ...          125.000000             36.000000
+75%      190.000000     3.000000  ...          380.000000             66.000000
+max    12732.000000    10.000000  ...        28120.000000            338.000000
+
+[8 rows x 8 columns]
+

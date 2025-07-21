@@ -1,0 +1,102 @@
+DataFrame: X_train
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 8611 entries, 0 to 8610
+Data columns (total 81 columns):
+ #   Column                           Non-Null Count  Dtype  
+---  ------                           --------------  -----  
+ 0   number_of_elements               8611 non-null   uint8  
+ 1   mean_atomic_mass                 8611 non-null   float64
+ 2   wtd_mean_atomic_mass             8611 non-null   float64
+ 3   gmean_atomic_mass                8611 non-null   float64
+ 4   wtd_gmean_atomic_mass            8611 non-null   float64
+ 5   entropy_atomic_mass              8611 non-null   float64
+ 6   wtd_entropy_atomic_mass          8611 non-null   float64
+ 7   range_atomic_mass                8611 non-null   float64
+ 8   wtd_range_atomic_mass            8611 non-null   float64
+ 9   std_atomic_mass                  8611 non-null   float64
+ 10  wtd_std_atomic_mass              8611 non-null   float64
+ 11  mean_fie                         8611 non-null   float64
+ 12  wtd_mean_fie                     8611 non-null   float64
+ 13  gmean_fie                        8611 non-null   float64
+ 14  wtd_gmean_fie                    8611 non-null   float64
+ 15  entropy_fie                      8611 non-null   float64
+ 16  wtd_entropy_fie                  8611 non-null   float64
+ 17  range_fie                        8611 non-null   float64
+ 18  wtd_range_fie                    8611 non-null   float64
+ 19  std_fie                          8611 non-null   float64
+ 20  wtd_std_fie                      8611 non-null   float64
+ 21  mean_atomic_radius               8611 non-null   float64
+ 22  wtd_mean_atomic_radius           8611 non-null   float64
+ 23  gmean_atomic_radius              8611 non-null   float64
+ 24  wtd_gmean_atomic_radius          8611 non-null   float64
+ 25  entropy_atomic_radius            8611 non-null   float64
+ 26  wtd_entropy_atomic_radius        8611 non-null   float64
+ 27  range_atomic_radius              8611 non-null   int64  
+ 28  wtd_range_atomic_radius          8611 non-null   float64
+ 29  std_atomic_radius                8611 non-null   float64
+ 30  wtd_std_atomic_radius            8611 non-null   float64
+ 31  mean_Density                     8611 non-null   float64
+ 32  wtd_mean_Density                 8611 non-null   float64
+ 33  gmean_Density                    8611 non-null   float64
+ 34  wtd_gmean_Density                8611 non-null   float64
+ 35  entropy_Density                  8611 non-null   float64
+ 36  wtd_entropy_Density              8611 non-null   float64
+ 37  range_Density                    8611 non-null   float64
+ 38  wtd_range_Density                8611 non-null   float64
+ 39  std_Density                      8611 non-null   float64
+ 40  wtd_std_Density                  8611 non-null   float64
+ 41  mean_ElectronAffinity            8611 non-null   float64
+ 42  wtd_mean_ElectronAffinity        8611 non-null   float64
+ 43  gmean_ElectronAffinity           8611 non-null   float64
+ 44  wtd_gmean_ElectronAffinity       8611 non-null   float64
+ 45  entropy_ElectronAffinity         8611 non-null   float64
+ 46  wtd_entropy_ElectronAffinity     8611 non-null   float64
+ 47  range_ElectronAffinity           8611 non-null   float64
+ 48  wtd_range_ElectronAffinity       8611 non-null   float64
+ 49  std_ElectronAffinity             8611 non-null   float64
+ 50  wtd_std_ElectronAffinity         8611 non-null   float64
+ 51  mean_FusionHeat                  8611 non-null   float64
+ 52  wtd_mean_FusionHeat              8611 non-null   float64
+ 53  gmean_FusionHeat                 8611 non-null   float64
+ 54  wtd_gmean_FusionHeat             8611 non-null   float64
+ 55  entropy_FusionHeat               8611 non-null   float64
+ 56  wtd_entropy_FusionHeat           8611 non-null   float64
+ 57  range_FusionHeat                 8611 non-null   float64
+ 58  wtd_range_FusionHeat             8611 non-null   float64
+ 59  std_FusionHeat                   8611 non-null   float64
+ 60  wtd_std_FusionHeat               8611 non-null   float64
+ 61  mean_ThermalConductivity         8611 non-null   float64
+ 62  wtd_mean_ThermalConductivity     8611 non-null   float64
+ 63  gmean_ThermalConductivity        8611 non-null   float64
+ 64  wtd_gmean_ThermalConductivity    8611 non-null   float64
+ 65  entropy_ThermalConductivity      8611 non-null   float64
+ 66  wtd_entropy_ThermalConductivity  8611 non-null   float64
+ 67  range_ThermalConductivity        8611 non-null   float64
+ 68  wtd_range_ThermalConductivity    8611 non-null   float64
+ 69  std_ThermalConductivity          8611 non-null   float64
+ 70  wtd_std_ThermalConductivity      8611 non-null   float64
+ 71  mean_Valence                     8611 non-null   float64
+ 72  wtd_mean_Valence                 8611 non-null   float64
+ 73  gmean_Valence                    8611 non-null   float64
+ 74  wtd_gmean_Valence                8611 non-null   float64
+ 75  entropy_Valence                  8611 non-null   float64
+ 76  wtd_entropy_Valence              8611 non-null   float64
+ 77  range_Valence                    8611 non-null   uint8  
+ 78  wtd_range_Valence                8611 non-null   float64
+ 79  std_Valence                      8611 non-null   float64
+ 80  wtd_std_Valence                  8611 non-null   float64
+dtypes: float64(78), int64(1), uint8(2)
+memory usage: 5.2 MB
+
+       number_of_elements  mean_atomic_mass  ...  std_Valence  wtd_std_Valence
+count         8611.000000       8611.000000  ...  8611.000000      8611.000000
+mean             4.104517         87.380015  ...     0.843909         0.674377
+std              1.450697         30.017709  ...     0.482583         0.451412
+min              1.000000          6.941000  ...     0.000000         0.000000
+25%              3.000000         72.324650  ...     0.471405         0.306696
+50%              4.000000         85.176922  ...     0.800000         0.500000
+75%              5.000000        100.485200  ...     1.213352         1.019804
+max              9.000000        208.980400  ...     3.000000         3.000000
+
+[8 rows x 81 columns]
+

@@ -69,4 +69,10 @@ def handle_outliers(df, method='cap', lower_quantile=0.01, upper_quantile=0.99):
         summary['columns'] = []
         return df, summary
     else:
-        raise ValueError(f"Unknown method: {method}") 
+        raise ValueError(f"Unknown method: {method}")
+
+def handle_outliers_configurable(df, config):
+    method = config.get('option', 'cap')
+    lower_q = config.get('lower_quantile', 0.01)
+    upper_q = config.get('upper_quantile', 0.99)
+    return handle_outliers(df, method=method, lower_quantile=lower_q, upper_quantile=upper_q) 

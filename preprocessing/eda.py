@@ -213,3 +213,49 @@ def run_eda_for_dataset(dataset_name, x_path, y_path, output_dir):
     plot_target_distribution(y, dataset_name, os.path.join(output_dir, f"{dataset_name}_target_distribution.png"))
     plot_outlier_histograms(X, dataset_name, output_dir)
     # plot_pairplot(X, dataset_name, output_dir)  # Optional, can be slow
+
+def save_summary_report(pre_stats, post_stats, changes, output_dir, dataset_name):
+    """
+    Save a summary report comparing pre- and post-EDA statistics and listing key changes.
+    """
+    report_path = os.path.join(output_dir, f"{dataset_name}_preprocessing_summary.txt")
+    with open(report_path, 'w') as f:
+        f.write(f"Summary Report for {dataset_name}\n\n")
+        f.write("--- Preprocessing Changes ---\n")
+        for change in changes:
+            f.write(f"- {change}\n")
+        f.write("\n--- Pre-EDA Stats ---\n")
+        f.write(pre_stats)
+        f.write("\n--- Post-EDA Stats ---\n")
+        f.write(post_stats)
+    print(f"Summary report saved to {report_path}")
+
+
+def get_basic_stats(df, name=None):
+    """
+    Return a string with basic stats: shape, dtypes, missing values, and describe().
+    """
+    info_str = f"DataFrame: {name}\n" if name else ""
+    info_str += f"Shape: {df.shape}\n"
+    info_str += f"Dtypes:\n{df.dtypes}\n"
+    info_str += f"Missing values:\n{df.isnull().sum()}\n"
+    info_str += f"Describe:\n{df.describe(include='all')}\n"
+    return info_str
+
+
+def run_post_eda(df_X, df_y, dataset_name, output_dir, config):
+    """
+    Run EDA after preprocessing for comparison.
+    """
+    print(f"Running post-EDA for {dataset_name}...")
+    display_data_info(df_X, f"{dataset_name}_X_post", output_dir)
+    display_data_info(df_y, f"{dataset_name}_Y_post", output_dir)
+    plot_correlation_heatmap(df_X, f"{dataset_name}_X_post", os.path.join(output_dir, f"{dataset_name}_correlation_heatmap_post.png"))
+    check_missing_values(df_X, f"{dataset_name}_X_post", output_dir)
+    plot_feature_target_correlation(df_X, df_y, f"{dataset_name}_post", os.path.join(output_dir, f"{dataset_name}_feature_target_correlation_post.png"))
+    plot_feature_importances(df_X, df_y, f"{dataset_name}_post", output_dir)
+    plot_feature_distributions(df_X, f"{dataset_name}_post", os.path.join(output_dir, f"{dataset_name}_feature_distributions_post.png"))
+    plot_boxplots(df_X, f"{dataset_name}_post", os.path.join(output_dir, f"{dataset_name}_boxplots_post.png"))
+    plot_target_distribution(df_y, f"{dataset_name}_post", os.path.join(output_dir, f"{dataset_name}_target_distribution_post.png"))
+    plot_outlier_histograms(df_X, f"{dataset_name}_post", output_dir)
+    # plot_pairplot(df_X, f"{dataset_name}_post", output_dir)  # Optional

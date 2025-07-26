@@ -3,6 +3,7 @@ import sys
 import importlib
 import pandas as pd
 from preprocessing import default_preprocessing as config_module
+import numpy as np
 
 # Add preprocessing folder to path for imports (if needed)
 PREPROCESSING_DIR = os.path.join(os.path.dirname(__file__), "preprocessing")
@@ -43,9 +44,15 @@ def run_imputation(df, config):
         print("Imputation disabled.")
         return df
     print(f"Running imputation using method: {config['imputation']['option']}")
-    # Assuming feature_engineering.py has `impute_missing_values(df, method)`
     method = config['imputation'].get("option", "median")
-    return feature_eng.impute_missing_values(df, method=method)
+    if method == 'knn':
+        import preprocessing.feature_engineering as feature_eng
+        df, _ = feature_eng.knn_impute_missing_values(df)
+        return df
+    else:
+        import preprocessing.handle_missing_values as missing
+        df, _ = missing.handle_missing_values(df, strategy=method)
+        return df
 
 
 def run_encoding(df, config):
@@ -80,25 +87,97 @@ def run_outlier_handling(df, config):
         return df
     option = config["outlier_handling"]["option"]
     print(f"Running outlier handling using method: {option}")
-    if option == "iqr":
-        return outliers.handle_outliers_iqr(df)
-    elif option == "zscore":
-        return outliers.handle_outliers_zscore(df)
-    else:
-        print("No outlier handling performed.")
-        return df
+    import preprocessing.handle_outliers as outliers
+    return outliers.handle_outliers_configurable(df, config["outlier_handling"])[0]
+
+
+def auto_detect_and_process(df, config):
+    """
+    Auto-detect datetime and text columns, and apply processing if enabled in config.
+    """
+    changes = []
+    # Datetime features
+    if config.get("feature_generation", {}).get("datetime_features", {}).get("enabled", False):
+        for col in df.columns:
+            if np.issubdtype(df[col].dtype, np.datetime64):
+                df[f"{col}_year"] = df[col].dt.year
+                df[f"{col}_month"] = df[col].dt.month
+                df[f"{col}_day"] = df[col].dt.day
+                changes.append(f"Extracted year/month/day from datetime column {col}")
+    # Text features (placeholder, real implementation would use TF-IDF/CountVectorizer)
+    if config.get("feature_generation", {}).get("text_features", {}).get("enabled", False):
+        for col in df.columns:
+            if df[col].dtype == object and df[col].str.len().mean() > 20:
+                changes.append(f"Text feature extraction suggested for column {col}")
+    return df, changes
+
+
+def log_transform_skewed_features(df, config):
+    """
+    Log-transform highly skewed numerical features if enabled in config.
+    """
+    changes = []
+    if config.get("log_transform", {}).get("enabled", False):
+        skew_thresh = config["log_transform"].get("skew_thresh", 1.0)
+        numeric_cols = df.select_dtypes(include=[np.number]).columns
+        skewed = df[numeric_cols].apply(lambda x: x.skew()).abs()
+        skewed_cols = skewed[skewed > skew_thresh].index.tolist()
+        for col in skewed_cols:
+            df[col] = np.log1p(df[col])
+            changes.append(f"Log-transformed highly skewed column {col}")
+    return df, changes
 
 
 def preprocess_data(df_X, df_y=None, dataset_name="dataset", output_dir="eda_reports", config=DEFAULT_PREPROCESSING_CONFIG):
+    import preprocessing.eda as eda
+    import preprocessing.feature_engineering as feature_eng
+    changes = []
+    # Pre-EDA
     run_eda(df_X, df_y, dataset_name, output_dir, config)
-
+    pre_stats = eda.get_basic_stats(df_X, f"{dataset_name}_X (pre)")
+    # Imputation
     df_X = run_imputation(df_X, config)
+    # Add missing indicator columns if enabled
+    if config.get("missing_indicator", {}).get("enabled", False):
+        df_X, indicator_cols = feature_eng.add_missing_indicators(df_X)
+        if indicator_cols:
+            changes.append(f"Added missing indicator columns: {indicator_cols}")
+    # Outlier handling
     df_X = run_outlier_handling(df_X, config)
+    # Encoding
     df_X = run_encoding(df_X, config)
+    # Scaling
     df_X = run_scaling(df_X, config)
-
-    # Add feature selection/generation steps here if needed
-
+    # Quantile transform (optional)
+    if config.get("quantile_transform", {}).get("enabled", False):
+        df_X, _ = feature_eng.quantile_transform_features(df_X, output_distribution=config["quantile_transform"].get("output_distribution", "normal"))
+        changes.append("Applied quantile transform to numeric features")
+    # Power transform (optional)
+    if config.get("power_transform", {}).get("enabled", False):
+        df_X, _ = feature_eng.power_transform_features(df_X, method=config["power_transform"].get("method", "yeo-johnson"))
+        changes.append(f"Applied power transform ({config['power_transform'].get('method', 'yeo-johnson')}) to numeric features")
+    # Drop low variance categorical (optional)
+    if config.get("feature_generation", {}).get("drop_low_variance_categorical", {}).get("enabled", False):
+        df_X, drop_cols = feature_eng.drop_low_variance_categorical_features(df_X, threshold=config["feature_generation"]["drop_low_variance_categorical"].get("threshold", 0.95))
+        if drop_cols:
+            changes.append(f"Dropped low-variance categorical columns: {drop_cols}")
+    # Log-transform skewed features (optional)
+    df_X, log_changes = log_transform_skewed_features(df_X, config)
+    changes.extend(log_changes)
+    # Auto-detect and process datetime/text features (optional)
+    df_X, auto_changes = auto_detect_and_process(df_X, config)
+    changes.extend(auto_changes)
+    # Target transform (optional)
+    if config.get("target_transform", {}).get("enabled", False) and df_y is not None:
+        option = config["target_transform"].get("option", "none")
+        if option != "none":
+            df_y = feature_eng.transform_target(df_y, transform_type=option)
+            changes.append(f"Applied target transform: {option}")
+    # Post-EDA
+    eda.run_post_eda(df_X, df_y, dataset_name, output_dir, config)
+    post_stats = eda.get_basic_stats(df_X, f"{dataset_name}_X (post)")
+    # Save summary report
+    eda.save_summary_report(pre_stats, post_stats, changes, output_dir, dataset_name)
     return df_X, df_y
 
 

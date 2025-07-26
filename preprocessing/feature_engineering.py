@@ -6,8 +6,9 @@ from sklearn.preprocessing import (
 )
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import VarianceThreshold
-from sklearn.impute import SimpleImputer
+from sklearn.impute import SimpleImputer, KNNImputer
 from scipy import stats
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 
 def one_hot_encode(df, drop_first=True):
@@ -139,7 +140,7 @@ def transform_target(y, transform_type='log'):
         raise ValueError(f"Unsupported target transform: {transform_type}")
 
 
-def apply_quantile_transform(df, output_distribution='normal'):
+def quantile_transform_features(df, output_distribution='normal'):
     numeric_cols = df.select_dtypes(include=[np.number]).columns
     transformer = QuantileTransformer(output_distribution=output_distribution, random_state=42)
     df_trans = df.copy()
@@ -147,7 +148,7 @@ def apply_quantile_transform(df, output_distribution='normal'):
     return df_trans, transformer
 
 
-def apply_power_transform(df, method='yeo-johnson'):
+def power_transform_features(df, method='yeo-johnson'):
     if method not in ['yeo-johnson', 'box-cox']:
         raise ValueError("Only 'yeo-johnson' and 'box-cox' supported")
     numeric_cols = df.select_dtypes(include=[np.number]).columns
@@ -157,7 +158,7 @@ def apply_power_transform(df, method='yeo-johnson'):
     return df_trans, pt
 
 
-def drop_low_variance_categorical(df, threshold=0.95):
+def drop_low_variance_categorical_features(df, threshold=0.95):
     cat_cols = df.select_dtypes(include=['object', 'category']).columns
     drop_cols = [col for col in cat_cols if df[col].value_counts(normalize=True).max() > threshold]
     df_reduced = df.drop(columns=drop_cols)
@@ -172,3 +173,22 @@ def impute_missing_values(df, strategy='mean'):
     df_copy = df.copy()
     df_copy[numeric_cols] = imputer.fit_transform(df[numeric_cols])
     return df_copy, imputer
+
+
+def knn_impute_missing_values(df, n_neighbors=5):
+    # Only works for numeric columns
+    numeric_cols = df.select_dtypes(include=[np.number]).columns
+    imputer = KNNImputer(n_neighbors=n_neighbors)
+    df_copy = df.copy()
+    df_copy[numeric_cols] = imputer.fit_transform(df[numeric_cols])
+    return df_copy, imputer
+
+
+def text_feature_extraction(df, col, method='tfidf'):
+    # Placeholder: not fully implemented
+    if method == 'tfidf':
+        raise NotImplementedError("TF-IDF text feature extraction not implemented yet.")
+    elif method == 'count':
+        raise NotImplementedError("CountVectorizer text feature extraction not implemented yet.")
+    else:
+        raise ValueError(f"Unknown text feature extraction method: {method}")

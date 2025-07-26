@@ -7,40 +7,57 @@ DEFAULT_PREPROCESSING_CONFIG = {
     },
     "imputation": {
         "enabled": True,
-        "option": "median"  
-        # Options for missing value imputation:
+        "option": "median",  # Options: "mean", "median", "most_frequent" (mode), "knn" (not implemented)
         # - "mean": fill numeric cols with mean
         # - "median": fill numeric cols with median (default, robust to outliers)
-        # - "mode": fill categorical cols with mode
-        # - "knn": use KNN imputer (requires extra dependency)
+        # - "most_frequent": fill with mode (for numeric/categorical)
+        # - "knn": use KNN imputer (requires extra dependency, not implemented)
     },
     "encoding": {
         "enabled": True,
-        "option": "onehot"  
-        # Encoding categorical features:
+        "option": "onehot",  # Options: "onehot", "label"
         # - "onehot": one-hot encoding (creates dummy variables)
         # - "label": label encoding (integer encoding)
     },
     "scaling": {
         "enabled": True,
-        "option": "standard"  
-        # Feature scaling options:
+        "option": "standard",  # Options: "standard", "minmax", "robust", "auto"
         # - "standard": StandardScaler (mean=0, std=1)
         # - "minmax": MinMaxScaler (scale to [0,1])
         # - "robust": RobustScaler (robust to outliers)
+        # - "auto": Chooses scaler based on skewness/outliers
     },
     "outlier_handling": {
         "enabled": True,
-        "option": "iqr"  
-        # Outlier detection/removal methods:
-        # - "iqr": Interquartile Range method (default)
-        # - "zscore": Z-score method
+        "option": "iqr",  # Options: "cap", "remove", "flag", "iqr", "zscore", "none"
+        # - "cap": Cap outliers at quantiles (Winsorization)
+        # - "remove": Remove rows containing outliers
+        # - "flag": Add boolean columns indicating outliers
+        # - "iqr": Interquartile Range method (default, uses "cap")
+        # - "zscore": Z-score method (uses "cap")
         # - "none": do not handle outliers
+        "lower_quantile": 0.01,  # Quantile for lower outlier threshold
+        "upper_quantile": 0.99   # Quantile for upper outlier threshold
+    },
+    "log_transform": {
+        "enabled": False,  # Log-transform highly skewed features if True
+        "skew_thresh": 1.0  # Threshold for skewness to apply log-transform
+    },
+    "quantile_transform": {
+        "enabled": False,  # Apply quantile transformation to numeric features
+        "output_distribution": "normal"  # "normal" or "uniform"
+    },
+    "power_transform": {
+        "enabled": False,  # Apply power transformation (yeo-johnson, box-cox)
+        "method": "yeo-johnson"  # "yeo-johnson" or "box-cox"
+    },
+    "missing_indicator": {
+        "enabled": False  # Add missing indicator columns if True
     },
     "feature_selection": {
         "enabled": False,
-        "method": "correlation",  
-        # Methods for feature selection:
+        "method": "correlation",  # Options: "variance", "correlation", "model_importance", "none"
+        # - "variance": VarianceThreshold
         # - "correlation": select top features by correlation with target
         # - "model_importance": select features by importance from e.g. RandomForest
         # - "none": no feature selection
@@ -59,24 +76,27 @@ DEFAULT_PREPROCESSING_CONFIG = {
         },
         "text_features": {
             "enabled": False,
-            "method": "tfidf"  
-            # Text feature extraction methods:
-            # - "tfidf": TF-IDF vectorization
-            # - "count": Count vectorization
+            "method": "tfidf"  # Options: "tfidf", "count" (not implemented)
+            # - "tfidf": TF-IDF vectorization (not implemented)
+            # - "count": Count vectorization (not implemented)
+        },
+        "drop_low_variance_categorical": {
+            "enabled": False,
+            "threshold": 0.95  # Drop categorical columns with >95% same value
         }
     },
-    "target_encoding": {
+    "target_transform": {
         "enabled": False,
-        "option": "none"  
-        # Encoding targets:
+        "option": "none"  # Options: "none", "log", "sqrt", "boxcox"
         # - "none": leave target as-is
-        # - "label": label encode target if categorical
-        # - "binarize": binarize target (for binary classification)
+        # - "log": log1p transform
+        # - "sqrt": square root transform
+        # - "boxcox": box-cox transform
     },
     "custom_steps": {
         "enabled": False,
-        "scripts": []  
-        # List of custom preprocessing scripts (strings of script names)
+        "scripts": []  # List of custom preprocessing scripts (strings of script names)
         # Example: ["normalize_data", "remove_leaky_features"]
+        # (Not implemented: placeholder for user custom code)
     }
 }

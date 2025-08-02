@@ -9,3 +9,14 @@ automl-tabular-env
 
 # allow predictions.npy to be uploaded and allow eval results to be saved here
 !data/exam_dataset/1/*.npy
+
+results
+results/new
+results_old/
+outputs/
+.ipynb_checkpoints/
+autogluon_42/
+catboost_info
+results_new/
+neps_results_old/
+logs/
